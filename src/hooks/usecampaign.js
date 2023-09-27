@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 const useCampaign = () => {
   const [crowdCampaign, setcrowdCampaign] = useState([]);
-  const [campaignCount, setcampaignCount] = useState([]);
+  //   const [campaignCount, setcampaignCount] = useState([]);
   const [get, setGet] = useState(false);
   const { isActive } = useConnection();
   const provider = new ethers.BrowserProvider(window.ethereum);
@@ -26,8 +26,8 @@ const useCampaign = () => {
     console.log(res);
     try {
       const data = [];
-      for (let i = 1; i < res[0]; i++) {
-        const output = await crowdContract.crowd(res);
+      for (let i = 1; i < Number(res[0]); i++) {
+        const output = await crowdContract.crowd(i);
         data.push(output);
       }
       return data;
@@ -50,7 +50,7 @@ const useCampaign = () => {
     );
   };
 
-  allCampaigns();
+  //   allCampaigns();
 
   useEffect(() => {
     if (!isActive || !provider) {
@@ -61,7 +61,7 @@ const useCampaign = () => {
     }
   }, [isActive, provider]);
 
-  return allCampaigns;
+  return crowdCampaign;
 };
 
 export default useCampaign;
